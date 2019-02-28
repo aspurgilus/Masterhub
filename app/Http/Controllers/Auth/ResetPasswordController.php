@@ -45,4 +45,13 @@ class ResetPasswordController extends Controller
 			['token' => $token, 'email' => $request->email]
 		);
 	}
+
+	public function redirectPath()
+	{
+		if (method_exists($this, 'redirectTo')) {
+			return $this->redirectTo();
+		}
+
+		return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
+	}
 }

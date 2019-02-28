@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class VerificationController extends Controller
 {
@@ -25,7 +28,7 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/email/verifysuccess';
 
     /**
      * Create a new controller instance.
@@ -38,4 +41,52 @@ class VerificationController extends Controller
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
+
+	public function show(Request $request)
+	{
+//		session()->flash('status','Перейдите по ссылке для подтверждения вашего Email');
+		return $request->user()->hasVerifiedEmail()
+			? redirect($this->redirectPath())
+			: view('auth.verify');
+	}
+
+	public function resend(Request $request)
+	{
+		if ($request->user()->hasVerifiedEmail()) {
+			session()->flash('status','Ваш Email уже подтвержден');
+			return redirect($this->redirectPath());
+		}
+
+		$request->user()->sendEmailVerificationNotification();
+		session()->flash('status','Письмо подтверждения Email было выслано повторно');
+
+		return back()->with('resent', true);
+	}
+
+	public function verify(Request $request)
+	{
+		if ($request->route('id') != $request->user()->getKey()) {
+			throw new AuthorizationException;
+		}
+
+		if ($request->user()->hasVerifiedEmail()) {
+			session()->flash('info','Ваш Email уже подтвержден');
+			return redirect($this->redirectPath());
+		}
+
+		if ($request->user()->markEmailAsVerified()) {
+			event(new Verified($request->user()));
+		}
+
+		return redirect($this->redirectPath())->with('verified', true);
+	}
+
+	public function redirectPath()
+	{
+		if (method_exists($this, 'redirectTo')) {
+			return $this->redirectTo();
+		}
+
+		return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
+	}
 }

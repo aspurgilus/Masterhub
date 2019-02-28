@@ -27,7 +27,7 @@
 </header>
 
 <main class="app-content py-4">
-
+    @include('/layouts.flash')
     @yield('content')
 
 </main>
