@@ -6,7 +6,7 @@
 @component('mail::button', ['url' => $url])
 Подтвердить электронную почту
 @endcomponent
-
+Если у вас возникли проблемы с отображением кнопки, вы можете перейти по ссылке {{$url}}
 С уважением,<br>
 {{ config('app.name') }}
 @endcomponent

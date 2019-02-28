@@ -42,11 +42,11 @@ class resetingPasswordNotification extends Notification
      */
     public function toMail($notifiable)
     {
-
+		$url = route('password.reset', [$this->token]);
         return (new MailMessage)
 			->from('support@masterhub.test')
 			->subject('Masterhub')
-			->markdown('emails.resetingPassword',['name' => $notifiable->name,'token' => $this->token]);
+			->markdown('emails.resetingPassword',['name' => $notifiable->name,'url' => $url]);
     }
 
     /**
