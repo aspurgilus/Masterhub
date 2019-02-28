@@ -26,14 +26,25 @@
             @include('layouts.header')
         </header>
 
-        <main class="app-content py-4">
-            @include('/layouts.flash')
-            @yield('content')
+        <div class="row app-content">
+            <div class="col-md-2">
+                <aside class="w-100">
+                    @include('layouts.aside')
+                </aside>
+            </div>
+            <div class="col-md-10">
+                <main class="app-content py-4">
+                    @include('/layouts.flash')
+                    @yield('content')
 
-        </main>
+                </main>
+            </div>
+        </div>
         <footer>
             @include('layouts.footer')
         </footer>
 
 </body>
 </html>
+
+

@@ -19,3 +19,5 @@ Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/email/verifysuccess','HomeController@verifiedMail')->name('verified');
+
+Route::resource('/profile','UserController')->names(['index' => 'profile']);
