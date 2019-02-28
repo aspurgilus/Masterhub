@@ -22,19 +22,19 @@
 
 </head>
 <body>
-    <div id="app">
-        <header>
-            @include('layouts.header')
-        </header>
+<div id="app">
+    <header>
+        @include('layouts.header')
+    </header>
 
-        <main class="app-content py-4">
-            <div class="container">
-                @yield('content')
-            </div>
-        </main>
-        <footer>
-            @include('layouts.footer')
-        </footer>
-    </div>
+    <main class="app-content py-4">
+        <div class="container">
+            @yield('content')
+        </div>
+    </main>
+    <footer>
+        @include('layouts.footer')
+    </footer>
+</div>
 </body>
 </html>
