@@ -17,8 +17,8 @@
                             <input type="hidden" name="token" value="{{ $token }}">
 
                                 <div class="col-md-6 mx-auto">
-                                    <label for="email" class="col-form-label font-weight-bold">Электронный адресс</label>
-                                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $email ?? old('email') }}" required autofocus>
+
+                                    <input id="email" type="hidden" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $email ?? old('email') }}" required>
 
                                     @if ($errors->has('email'))
                                         <span class="invalid-feedback" role="alert">
