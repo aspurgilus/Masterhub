@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -17,6 +18,7 @@ class UserController extends Controller
 
     public function index()
     {
+
 		$user = Auth()->user();
 		if(!$user->email_verified_at) session()->flash('error','Ваш Email не подтвержден. В данный момент функционал сайта ограничен');
 //		$professions = $user->professions()->orderBy('name')->get();
@@ -66,7 +68,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('users.edit',compact('user'));
     }
 
     /**
