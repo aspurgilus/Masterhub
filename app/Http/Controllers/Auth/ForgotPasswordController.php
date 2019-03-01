@@ -44,7 +44,12 @@ class ForgotPasswordController extends Controller
 		);
 
 		return $response == Password::RESET_LINK_SENT
-			? $this->sendResetLinkResponse($request, $response)->with('success','Письмо для сброса пароля было отправлено на ваш электронный адресс')
+			? $this->sendResetLinkResponse($request, $response)
 			: $this->sendResetLinkFailedResponse($request, $response)->with('error','Письмо не было отправлено');
+	}
+
+	protected function sendResetLinkResponse(Request $request, $response)
+	{
+		return back()->with('success','Письмо для сброса пароля было отправлено на ваш электронный адресс');
 	}
 }

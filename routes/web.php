@@ -21,3 +21,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/email/verifysuccess','HomeController@verifiedMail')->name('verified');
 
 Route::resource('/profile','UserController')->names(['index' => 'profile']);
+
+
+
+Route::group([
+	'prefix' => 'admin',
+	'as' => 'admin.',
+	'namespace' => 'Admin',
+	'middleware' => ['auth'],
+],function() {
+	Route::get('/','HomeController@index')->name('home');
+	Route::resource('users','UsersController');
+});
+
