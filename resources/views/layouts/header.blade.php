@@ -13,6 +13,7 @@
                 <li class="nav-item">
                     <input class="form-control" type="search" name="search" placeholder="Поиск...">
                 </li>
+
             </ul>
 
             <!-- Right Side Of Navbar -->

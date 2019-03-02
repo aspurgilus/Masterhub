@@ -22,27 +22,22 @@
 
 </head>
 <body id="app">
-        <header>
-            @include('layouts.header')
-        </header>
-
-        <div class="row app-content">
-            <div class="col-md-2">
-                <aside class="w-100">
-                    @include('layouts.aside')
-                </aside>
-            </div>
-            <div class="col-md-10">
-                <main class="app-content py-4">
-                    @include('/layouts.flash')
-                    @yield('content')
-
-                </main>
-            </div>
+    <div class="row app-content">
+        <div class="col-md-2">
+            @include('layouts.admin.aside')
         </div>
-        <footer>
-            @include('layouts.footer')
-        </footer>
+        <div class="col-md-10">
+            <main>
+                @include('layouts.admin.header')
+                @include('layouts.flash')
+                @yield('content')
+                <div class="adminFooter mx-auto">
+                    @include('layouts.admin.footer')
+                </div>
+            </main>
+        </div>
+    </div>
+
 
 </body>
 </html>
